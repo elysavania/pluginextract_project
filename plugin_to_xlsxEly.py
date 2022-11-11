@@ -25,7 +25,7 @@ crmrequirements = [
 "SFDC Requirements: https://support.outreach.io/hc/en-us/articles/218582707"
 ]
 
-#label_mapping includes all columns in the excel document
+# label_mapping includes all columns in the excel document
 label_mapping = {
     "PluginID":"Plugin ID",
     "Provider":"Provider",
@@ -87,7 +87,7 @@ label_mapping = {
     "OutboundIncludeMessageID" : "Include Message ID field for events"
 }
 
-#field_mapping indicates selected fields that are mapped in the CRM
+# field_mapping indicates selected fields that are mapped in the CRM
 field_mapping = {
     "InternalField":"Outreach Field Name",
     "InternalDefault":"Internal Default",
@@ -103,7 +103,7 @@ field_mapping = {
     "OutboundEnabled":"Outbound Enabled"
 }
 
-#preset_data_lead is the data captured from the lead config in the JSON file
+# preset_data_lead is the data captured from the lead config in the JSON file
 preset_data_lead = {
 "account name":{"FieldType":"Text","RecordType":"Record Data","Recommended":"","UI Visibility":"+","Note":"Name of the account"},
 "actively being sequenced":{"FieldType":"Checkbox","Outreach Engagement":"Record Data","Recommended":"","UI Visibility":"","Note":"This field identifies if a Prospect is Active in a sequence."},
@@ -123,14 +123,14 @@ preset_data_lead = {
 "address_street":{"FieldType":"Text","RecordType":"Record Data","Recommended":"","UI Visibility":"+","Note":"Prospect's primary address"}
 }
 
-#dictionary cmd for leads
+# dictionary cmd for leads
 types_mapping_to_preset_data = {
     "Lead":preset_data_lead
 
 }
 
-#helper function to load plugin config json file
-def read_plugin_json(fname="ET_plugin_config.json"):
+# helper function to load plugin config json file
+def read_plugin_json(fname="MC_plugin_configuration.json"):
     with open(fname, 'r') as f:
         plugin_data = json.load(f)
     return plugin_data
@@ -144,7 +144,7 @@ def get_mappings_dict(plugin_data):
     types = {}
     type_names = []
     for ptype in ptype_mappings:
-        if ptype['InternalType'] == 'MessengerGroup':
+        if ptype['InternalType'] == 'MessengerGroup': #ignore MessengerGroup object
             continue
         # name = str(ptype['ExternalType'])+'-'+str(ptype['InternalType'])
         name = (ptype['ExternalType'],ptype['InternalType'])
@@ -154,13 +154,13 @@ def get_mappings_dict(plugin_data):
     del limits['PluginTypeMappings']
     return limits, type_names, types
 
-#fn to replace the provider with Provider
+# fn to replace the provider with Provider
 def update_provider_in_label_mapping(datadict):
     provider = datadict['Provider'].capitalize()
     for i in label_mapping:
         label_mapping[i] = label_mapping[i].replace("{provider}",provider) #why provider here is not capitalized
 
-#fn to add types to label mappings
+# fn to add types to label mappings
 def update_external_internal_in_label_mapping(datalist,lm):
     external_type = datalist[0]
     internal_type = datalist[1]
@@ -169,21 +169,21 @@ def update_external_internal_in_label_mapping(datalist,lm):
         lm[index] = lm[index].replace("{internal_type}",internal_type)
     return(lm)
 
-#fn to remove the label mappings and keep the mapping data
+# fn to remove the label mappings and keep the mapping data
 def update_labels_in_dictdata(data,lm):
     for label in lm:
         if label in data:
             data[lm[label]] = data.pop(label)    
     return(data)
 
-#fn to return the label mapping with its value
+# fn to return the label mapping with its value
 def update_label(value,lm):
     if value in lm:
         return lm[value]
     else:
         return(value)  
 
-#fn to search for the labels -> return values of the labels
+# fn to search for the labels -> return values of the labels
 def update_labels_in_list(lst,lm):
     for i in range(len(lst)):
         if lst[i] in lm: # looks for list[index] in lm
@@ -191,14 +191,14 @@ def update_labels_in_list(lst,lm):
     #print (lst)
     return(lst) 
 
-#fn to intersperse an item in a list
+# fn to intersperse an item in a list
 def intersperse(lst, item):
     result = [item] * (len(lst) * 2 - 1)
     result[0::2] = lst
     return result
 
 
-#fn to create condition columns and add the mapping values to the columns
+# fn to create condition columns and add the mapping values to the columns
 def write_conditions(value,lm,row):
     logical_operator = (update_label(value['LogicalOperator'].upper(),lm),'','')
     if 'Conditions' in value.keys():
@@ -228,7 +228,7 @@ def write_conditions(value,lm,row):
     return row
                                     
                                 
-#Below are all styling the sheet
+# Below are all styling the sheet
 if __name__ == "__main__":
     plain_text =   {'width': 200, 'style': 'text_style'}
     header_text =  {'width': 200, 'style': 'hdr_style'}
@@ -283,10 +283,10 @@ if __name__ == "__main__":
     plugin_data = read_plugin_json()
     limits,type_names, types = get_mappings_dict(plugin_data)
     update_provider_in_label_mapping(limits)
-    #Create the workbook
-    wb = xlsxwritertools.XLSXWorkbook('ET_plugin_config.xlsx')
+    # Create the workbook
+    wb = xlsxwritertools.XLSXWorkbook('MC_plugin_config.xlsx')
     
-    #Create CRM Requirements Sheet
+    # Create CRM Requirements Sheet
     sheet = wb.get_new_worksheet("CRM Requirements")   
     i = 0
     for line in crmrequirements:
@@ -296,7 +296,13 @@ if __name__ == "__main__":
             wb.add_single_row_new_way(sheet,i,0,plain_text,line)
         i +=1
         
-    #Create Parsed Sheets from Plugin Info
+    # Limit sheet
+    sheet = wb.get_new_worksheet("Limits")
+    update_labels_in_dictdata(limits, label_mapping)
+    list1 = list(limits.items())
+    wb.fill_sheet(sheet,col_dict_level_0, list1)
+    
+    # Create Parsed Sheets from Plugin Info
     for typename in type_names: 
         row = 0
         lm = label_mapping.copy()
@@ -349,11 +355,11 @@ if __name__ == "__main__":
             temp.append('') ## Recommended empty or prefilled 4
             temp.append('')  ## UI Visibility TODO: pre set values 5
             if i[8] == True:     ### Updates IN 6
-                temp.append('+')
+                temp.append('+') ## UI
             else:
                 temp.append('')
             if i[11] == True:   ### Updates OUT 7
-                temp.append('+')
+                temp.append('+') ## UI check
             else:
                 temp.append('')
             temp.append('')  ##NOTES 8
