@@ -193,7 +193,7 @@ preset_data_lead = {
 }
 preset_data_contact = {}
 
-preset_data_engagement_panel_field_note = "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+preset_data_engagement_panel_field_note = "Uncheck both 'Skip empty values...' checkboxes in Advanced Field Mapping"
 preset_data_engagement_panel_fields = {
     "current_sequence_name": {
         "FieldType": "",
@@ -275,8 +275,6 @@ types_mapping_to_preset_data = {
 }
 
 # helper function to load plugin config json file
-
-
 def read_plugin_json(fname="MC_plugin_configuration.json"):
     with open(fname, 'r') as f:
         plugin_data = json.load(f)
@@ -286,8 +284,6 @@ def read_plugin_json(fname="MC_plugin_configuration.json"):
 #     print(plugin_data.keys())
 
 # fn to identify the plugin types and fields associated w/ the types
-
-
 def get_mappings_dict(plugin_data):
     ptype_mappings = plugin_data['Legacy'].get('PluginTypeMappings', [])
     types = {}
@@ -310,7 +306,6 @@ def get_mappings_dict(plugin_data):
 
 # To replace the provider with Provider
 
-
 def update_provider_in_label_mapping(datadict):
     provider = datadict['Provider'].capitalize()
     for i in label_mapping:
@@ -318,7 +313,6 @@ def update_provider_in_label_mapping(datadict):
             "{provider}", provider)  # why provider here is not capitalized
 
 # To add types to label mappings
-
 
 def update_external_internal_in_label_mapping(datalist, lm):
     external_type = datalist[0]
@@ -329,8 +323,6 @@ def update_external_internal_in_label_mapping(datalist, lm):
     return (lm)
 
 # To remove the label mappings and keep the mapping data
-
-
 def update_labels_in_dictdata(data, lm):
     for label in lm:
         if label in data:
@@ -338,8 +330,6 @@ def update_labels_in_dictdata(data, lm):
     return (data)
 
 # To return the label mapping with its value
-
-
 def update_label(value, lm):
     if value in lm:
         return lm[value]
@@ -347,8 +337,6 @@ def update_label(value, lm):
         return (value)
 
 # To search for the labels -> return values of the labels
-
-
 def update_labels_in_list(lst, lm):
     for i in range(len(lst)):
         if lst[i] in lm:  # looks for list[index] in lm
@@ -357,8 +345,6 @@ def update_labels_in_list(lst, lm):
     return (lst)
 
 # To intersperse an item in a list
-
-
 def intersperse(lst, item):
     result = [item] * (len(lst) * 2 - 1)
     result[0::2] = lst
