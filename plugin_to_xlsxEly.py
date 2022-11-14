@@ -191,6 +191,7 @@ preset_data_lead = {
         "Note": "Prospect's primary address"
     }
 }
+preset_data_contact = {}
 
 preset_data_engagement_panel_field_note = "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
 preset_data_engagement_panel_fields = {
@@ -266,11 +267,11 @@ preset_data_engagement_panel_fields = {
     }
 }
 
-print(preset_data_lead.update(preset_data_engagement_panel_fields))
 # dictionary cmd for leads
 types_mapping_to_preset_data = {
+    # 2022-11-14 NOJ: https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression/26853961#26853961
     "Lead": dict(preset_data_lead, **preset_data_engagement_panel_fields),
-    "Contact": preset_data_engagement_panel_fields
+    "Contact": dict(preset_data_contact, **preset_data_engagement_panel_fields),
 }
 
 # helper function to load plugin config json file
