@@ -189,156 +189,88 @@ preset_data_lead = {
         "FieldType": "Text",
         "RecordType": "Record Data",
         "Note": "Prospect's primary address"
-    },
+    }
+}
+
+preset_data_engagement_panel_field_note = "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+preset_data_engagement_panel_fields = {
     "current_sequence_name": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_status": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_step": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_step_type": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_id": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_user_sfdc_id": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_step_due": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_id": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_name": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_user_sfdc_id": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_status": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_step": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequence_step_type": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     },
     "current_sequnce_step_due": {
         "FieldType": "",
         "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+        "Note": preset_data_engagement_panel_field_note
     }
 }
 
-preset_data_contact = {
-    "current_sequence_name": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_status": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_step": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_step_type": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_id": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_user_sfdc_id": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_step_due": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_id": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_name": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_user_sfdc_id": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_status": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_step": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequence_step_type": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    },
-    "current_sequnce_step_due": {
-        "FieldType": "",
-        "RecordType": "",
-        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
-    }
-}
-
+print(preset_data_lead.update(preset_data_engagement_panel_fields))
 # dictionary cmd for leads
 types_mapping_to_preset_data = {
-    "Lead": preset_data_lead,
-    "Contact": preset_data_contact
+    "Lead": dict(preset_data_lead, **preset_data_engagement_panel_fields),
+    "Contact": preset_data_engagement_panel_fields
 }
 
 # helper function to load plugin config json file
