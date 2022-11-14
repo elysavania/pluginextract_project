@@ -110,25 +110,87 @@ field_mapping = {
 
 # preset_data_lead is the data captured from the lead config in the JSON file
 preset_data_lead = {
-    "account name": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Name of the account"},
-    "actively being sequenced": {"FieldType": "Checkbox", "Outreach Engagement": "Record Data", "Note": "This field identifies if a Prospect is Active in a sequence."},
-    "add date": {"FieldType": "Date/Time", "RecordType": "Record Data", "Note": "Date Prospect was added in Outreach? Not visible on the prospect page"},
-    "first_name": {"FieldType": "Text", "RecordType": "Record Data", "Note": "First Name of Prospect"},
-    "last_name": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Last name of Prospect"},
-    "title": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Title of prospect"},
-    "company": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Prospect's company"},
-    "website": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Website URL"},
-    "work_phone": {"FieldType": "Number", "RecordType": "Record Data", "Note": "Work Number"},
-    "email": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Prospect's 1st email address"},
-    "emails_opted_out": {"FieldType": "Checkbox", "RecordType": "Opt-Out", "Note": "Email opt out state confirmation (Only when granular opt out is enabled)"},
-    "stage": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Prospect Stage in Outreach"},
-    "owner": {"FieldType": "Lookup", "RecordType": "Record Data", "Note": "Owner of prospect in Outreach"},
-    "address_state": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Prospect's state"},
-    "source": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Prospect Source"},
-    "address_street": {"FieldType": "Text", "RecordType": "Record Data", "Note": "Prospect's primary address"}
+    "account name": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Name of the account"
+    },
+    "actively being sequenced": {
+        "FieldType": "Checkbox",
+        "Outreach Engagement": "Record Data",
+        "Note": "This field identifies if a Prospect is Active in a sequence."
+    },
+    "add date": {
+        "FieldType": "Date/Time",
+        "RecordType": "Record Data",
+        "Note": "Date Prospect was added in Outreach? Not visible on the prospect page"
+    },
+    "first_name": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "First Name of Prospect"
+    },
+    "last_name": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Last name of Prospect"
+    },
+    "title": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Title of prospect"
+    },
+    "company": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Prospect's company"
+    },
+    "website": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Website URL"
+    },
+    "work_phone": {
+        "FieldType": "Number",
+        "RecordType": "Record Data",
+        "Note": "Work Number"
+    },
+    "email": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Prospect's 1st email address"
+    },
+    "emails_opted_out": {
+        "FieldType": "Checkbox",
+        "RecordType": "Opt-Out",
+        "Note": "Email opt out state confirmation (Only when granular opt out is enabled)"
+    },
+    "stage": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Prospect Stage in Outreach"
+    },
+    "owner": {
+        "FieldType": "Lookup",
+        "RecordType": "Record Data",
+        "Note": "Owner of prospect in Outreach"
+    },
+    "address_state": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Prospect's state"
+    },
+    "source": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Prospect Source"
+    },
+    "address_street": {
+        "FieldType": "Text",
+        "RecordType": "Record Data",
+        "Note": "Prospect's primary address"
+    }
 }
-
-CHECKMARK = '\u2075'
 
 # dictionary cmd for leads
 types_mapping_to_preset_data = {
@@ -306,13 +368,55 @@ if __name__ == "__main__":
         11: {'label': 'Updates Out', 'width': 30, 'style': 'text_style'},
     }
     col_field_mapping1 = {
-        0: {'label': 'Outreach Field Name', 'width': 30, 'style': 'text_style'},
-        1: {'label': 'SF Field Name', 'width': 30, 'style': 'text_style'},
-        2: {'label': 'Outreach Field Type', 'width': 30, 'style': 'text_style', 'dropdown': ['Text', 'Number', 'Checkbox', 'Date/Time', 'Text (/Picklist)', 'Lookup']},
-        3: {'label': 'Outreach Record Type', 'width': 30, 'style': 'text_style', 'dropdown': ['Record Data', 'Opt-Out', 'Outreach Engagement', 'Custom Fields']},
-        4: {'label': 'Updates In (SFDC > OR)', 'width': 25, 'style': 'color_checkboxes', 'note': 'Updates In = Sync data from Salesforce to Outreach. When the box is unchecked, the field can be synced from Salesforce. When the box is checked, the field is selected to be synced from Salesforce. When there is no checkbox, the field only syncs to Salesforce.'},
-        5: {'label': 'Updates Out (OR > SFDC)', 'width': 25, 'style': 'color_checkboxes', 'note': 'Updates Out = Push data from Outreach to Salesforce. When the box is unchecked, the field can be synced to Salesforce. When the box is checked, the field is selected to be synced to Salesforce. When there is no checkbox, the field only syncs from Salesforce.'},
-        6: {'label': 'Notes', 'width': 30, 'style': 'text_style'},
+        0: {
+            'label': 'Outreach Field Name',
+            'width': 30,
+            'style': 'text_style'
+        },
+        1: {
+            'label': 'SF Field Name',
+            'width': 30,
+            'style': 'text_style'
+        },
+        2: {
+            'label': 'Outreach Field Type',
+            'width': 30,
+            'style': 'text_style',
+            'dropdown': ['Text',
+                         'Number',
+                         'Checkbox',
+                         'Date/Time',
+                         'Text (/Picklist)',
+                         'Lookup'
+                         ]
+        },
+        3: {
+            'label': 'Outreach Record Type',
+            'width': 30,
+            'style': 'text_style',
+            'dropdown': ['Record Data',
+                         'Opt-Out',
+                         'Outreach Engagement',
+                         'Custom Fields'
+                         ]
+        },
+        4: {
+            'label': 'Updates In (SFDC > OR)',
+            'width': 25,
+            'style': 'color_checkboxes',
+            'note': 'Updates In = Sync data from Salesforce to Outreach. When the box is unchecked, the field can be synced from Salesforce. When the box is checked, the field is selected to be synced from Salesforce. When there is no checkbox, the field only syncs to Salesforce.'
+        },
+        5: {
+            'label': 'Updates Out (OR > SFDC)',
+            'width': 25,
+            'style': 'color_checkboxes',
+            'note': 'Updates Out = Push data from Outreach to Salesforce. When the box is unchecked, the field can be synced to Salesforce. When the box is checked, the field is selected to be synced to Salesforce. When there is no checkbox, the field only syncs from Salesforce.'
+        },
+        6: {
+            'label': 'Notes',
+            'width': 30,
+            'style': 'text_style'
+        },
     }
 
     plugin_data = read_plugin_json()
