@@ -189,13 +189,156 @@ preset_data_lead = {
         "FieldType": "Text",
         "RecordType": "Record Data",
         "Note": "Prospect's primary address"
+    },
+    "current_sequence_name": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_status": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step_type": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_user_sfdc_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step_due": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_name": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_user_sfdc_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_status": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step_type": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequnce_step_due": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    }
+}
+
+preset_data_contact = {
+    "current_sequence_name": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_status": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step_type": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_user_sfdc_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step_due": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_name": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_user_sfdc_id": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_status": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequence_step_type": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+    },
+    "current_sequnce_step_due": {
+        "FieldType": "",
+        "RecordType": "",
+        "Note": "UNTICK both 'Skip empty values...' checkboxes in Advanced Field Mapping"
     }
 }
 
 # dictionary cmd for leads
 types_mapping_to_preset_data = {
-    "Lead": preset_data_lead
-
+    "Lead": preset_data_lead,
+    "Contact": preset_data_contact
 }
 
 # helper function to load plugin config json file
@@ -326,46 +469,142 @@ def write_conditions(value, lm, row):
 
 # Below are all styling the sheet
 if __name__ == "__main__":
-    plain_text = {'width': 200, 'style': 'text_style'}
-    header_text = {'width': 200, 'style': 'hdr_style'}
-    url_text = {'width': 200, 'style': 'url_style'}
+    plain_text = {
+        'width': 200,
+        'style': 'text_style'
+    }
+    header_text = {
+        'width': 200,
+        'style': 'hdr_style'
+    }
+    url_text = {
+        'width': 200,
+        'style': 'url_style'
+    }
 
     col_dict_level_0 = {
         # Field column style
-        0: {'label': 'Field', 'width': 50, 'style': 'bold_style'},
-        1: {'label': 'Value', 'width': 50, 'style': 'text_style'},
+        0: {
+            'label': 'Field',
+            'width': 50,
+            'style': 'bold_style'
+        },
+        1: {
+            'label': 'Value',
+            'width': 50,
+            'style': 'text_style'
+        },
+
     }
 
     # Style for Messages & Events settings
     col_dict_task_mapping = {
-        0: {'label': 'Field', 'width': 100, 'style': 'color_bold_text_style'},
-        1: {'label': 'Value', 'width': 100, 'style': 'text_style'},
+        0: {
+            'label': 'Field',
+            'width': 100,
+            'style': 'color_bold_text_style'
+        },
+        1: {
+            'label': 'Value',
+            'width': 100,
+            'style': 'text_style'
+        },
+
     }
     # Style for conditional operators
     col_dict_conditions_operator = {
-        0: {'width': 50, 'style': 'color_bold_text_style'},
-        1: {'width': 50, 'style': 'color_bold_text_style'},
-        2: {'width': 50, 'style': 'color_bold_text_style'}
+        0: {
+            'width': 50,
+            'style': 'color_bold_text_style'
+        },
+        1: {'width': 50,
+            'style': 'color_bold_text_style'
+            },
+        2: {'width': 50,
+            'style': 'color_bold_text_style'
+            }
+
     }
     # Style for conditions settings
     col_dict_conditions = {
-        0: {'label': 'Field', 'width': 50, 'style': 'color_text_style'},
-        1: {'label': 'Comparison Operator', 'width': 50, 'style': 'color_text_style'},
-        2: {'label': 'Value', 'width': 50, 'style': 'color_text_style'},
+        0: {
+            'label': 'Field',
+            'width': 50,
+            'style': 'color_text_style'
+        },
+        1: {
+            'label': 'Comparison Operator',
+            'width': 50,
+            'style': 'color_text_style'
+        },
+        2: {
+            'label': 'Value',
+            'width': 50,
+            'style': 'color_text_style'
+        },
+
     }
     col_field_mapping = {
-        0: {'label': 'Internal Field', 'width': 30, 'style': 'text_style'},
-        1: {'label': 'Internal Empty Placeholder', 'width': 30, 'style': 'text_style'},
-        2: {'label': 'External Field', 'width': 30, 'style': 'text_style'},
-        3: {'label': 'External Mapped Type', 'width': 30, 'style': 'text_style'},
-        4: {'label': 'External Empty Placeholder', 'width': 30, 'style': 'text_style'},
-        5: {'label': 'Mapped Field', 'width': 30, 'style': 'text_style'},
-        6: {'label': 'Look For Name Instead Of record ID', 'width': 30, 'style': 'text_style'},
-        7: {'label': 'Display Name Instead Of record ID', 'width': 30, 'style': 'text_style'},
-        8: {'label': 'Updates In', 'width': 30, 'style': 'text_style'},
-        9: {'label': 'Outbound Omit If Empty', 'width': 30, 'style': 'text_style'},
-        10: {'label': 'Inbound Omit If Empty', 'width': 30, 'style': 'text_style'},
-        11: {'label': 'Updates Out', 'width': 30, 'style': 'text_style'},
+        0: {
+            'label': 'Internal Field',
+            'width': 30,
+            'style': 'text_style'
+        },
+        1: {
+            'label': 'Internal Empty Placeholder',
+            'width': 30,
+            'style': 'text_style'
+        },
+        2: {
+            'label': 'External Field',
+            'width': 30,
+            'style': 'text_style'
+        },
+        3: {
+            'label': 'External Mapped Type',
+            'width': 30,
+            'style': 'text_style'
+        },
+        4: {
+            'label': 'External Empty Placeholder',
+            'width': 30,
+            'style': 'text_style'
+        },
+        5: {
+            'label': 'Mapped Field',
+            'width': 30,
+            'style': 'text_style'
+        },
+        6: {
+            'label': 'Look For Name Instead Of record ID',
+            'width': 30,
+            'style': 'text_style'
+        },
+        7: {
+            'label': 'Display Name Instead Of record ID',
+            'width': 30,
+            'style': 'text_style'
+        },
+        8: {
+            'label': 'Updates In',
+            'width': 30,
+            'style': 'text_style'
+        },
+        9: {
+            'label': 'Outbound Omit If Empty',
+            'width': 30,
+            'style': 'text_style'
+        },
+        10: {
+            'label': 'Inbound Omit If Empty',
+            'width': 30,
+            'style': 'text_style'
+        },
+        11: {
+            'label': 'Updates Out',
+            'width': 30,
+            'style': 'text_style'
+        },
     }
     col_field_mapping1 = {
         0: {
@@ -382,23 +621,25 @@ if __name__ == "__main__":
             'label': 'Outreach Field Type',
             'width': 30,
             'style': 'text_style',
-            'dropdown': ['Text',
-                         'Number',
-                         'Checkbox',
-                         'Date/Time',
-                         'Text (/Picklist)',
-                         'Lookup'
-                         ]
+            'dropdown': [
+                'Text',
+                'Number',
+                'Checkbox',
+                'Date/Time',
+                'Text (/Picklist)',
+                'Lookup'
+            ]
         },
         3: {
             'label': 'Outreach Record Type',
             'width': 30,
             'style': 'text_style',
-            'dropdown': ['Record Data',
-                         'Opt-Out',
-                         'Outreach Engagement',
-                         'Custom Fields'
-                         ]
+            'dropdown': [
+                'Record Data',
+                'Opt-Out',
+                'Outreach Engagement',
+                'Custom Fields'
+            ]
         },
         4: {
             'label': 'Updates In (SFDC > OR)',
