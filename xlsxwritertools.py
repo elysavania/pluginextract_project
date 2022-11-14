@@ -70,25 +70,26 @@ class XLSXWorkbook():
             https://xlsxwriter.readthedocs.org/working_with_formats.html
         """
         # print('Building default styles')
-        text_params = {'align': 'left'}
-        color_text_params = {'align': 'left','bg_color': '#e6e6fa','border':1}
-        color_bold_text_params = {'align': 'left','bold': True,'bg_color': '#e6e6fa','border':1}
-        color_checkboxes_params = {'align': 'center','bold': True,'font_size': 20,'font_color': '#14A139'}
+        text_params = {'align': 'left', 'font_name': 'Helvetica'}
+        color_text_params = {'align': 'left','font_name': 'Helvetica', 'font_color':'#5951ff'} # Conditions and Messages & Events
+        color_bold_text_params = {'align': 'left','bold': True,'font_name': 'Helvetica',} # conditional operator text - AND or OR
+        color_checkboxes_params = {'align': 'center','bold': True,'font_name': 'Helvetica','font_size': 20,'font_color': '#14A139'} # columns contain checkboxes
         hdr_params = {'bold': True,
                 'align': 'left',
                 'shrink': True,
-                'bg_color': '#4a3a9e',
-                'font_size': 12,
-                'font_color': '#f3f2f7'
+                'bg_color': '#5951ff', # header background color set to deep purple
+                'font_name': 'Helvetica',
+                'font_size': 15,
+                'font_color': '#ffffff'
                 }
         sub_hdr_params = {'bold': True,
                 'align': 'center',
                 'shrink': True,
-                'bg_color': '#e6e6fa',
-                'border':1,
+                'font_name': 'Helvetica',
+                'font_color':'#5951ff',
                 'bottom': 5
                 }
-        bold_params = {'bold': True}
+        bold_params = {'bold': True,'font_name':'Helvetica','align':'left'}
         date_params = {'num_format': 'mm/dd/yyyy'}
         time_params = {'num_format': 'hh:mm'}
         integer_params = {'num_format': '#,##0', 'align': 'right'}
