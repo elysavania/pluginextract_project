@@ -4,6 +4,11 @@ import pandasql as pdsql
 import xlsxwritertools
 from decimal import Decimal
 
+# 2022-11-11 NOJ: Since Python 2.1 you can use \N{name} escape sequence to insert Unicode characters by their names.
+# Source: https://stackoverflow.com/a/20799954
+check_mark = "\N{white heavy check mark}"
+cross_mark = "\N{cross mark}"
+
 crmrequirements = [
     "Salesforce Requirements to Connect the Plugin",
     "Salesforce must authorize Outreach through a Salesforce system user and meet the following requirements:",
@@ -357,6 +362,12 @@ if __name__ == "__main__":
                     sheet, row, col_dict_level_0, (update_label(key, lm), '-'))
             elif type(value) is dict and len(value) > 0:
                 taskmappings = {key: value}
+            elif type(value) is bool and value is True:
+                row = wb.add_single_row(
+                    sheet, row, col_dict_level_0, (update_label(key, lm), check_mark))
+            elif type(value) is bool and value is False:
+                row = wb.add_single_row(
+                    sheet, row, col_dict_level_0, (update_label(key, lm), cross_mark))
             else:
                 row = wb.add_single_row(
                     sheet, row, col_dict_level_0, (update_label(key, lm), value))
@@ -393,11 +404,11 @@ if __name__ == "__main__":
             # temp.append('') ## Recommended empty or prefilled 4
             # temp.append('')  ## UI Visibility TODO: pre set values 5
             if i[8] == True:  # Updates IN 6
-                temp.append('\u2705')  # UI
+                temp.append(f"{check_mark}")  # UI
             else:
                 temp.append('')
             if i[11] == True:  # Updates OUT 7
-                temp.append('\u2705')  # UI check
+                temp.append(f"{check_mark}")  # UI check
             else:
                 temp.append('')
             temp.append('')  # NOTES 8
