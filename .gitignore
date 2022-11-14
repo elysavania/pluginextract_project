@@ -1,0 +1,3 @@
+# ignore all Excel files
+.xlsx
+MC_plugin_config.xlsx
