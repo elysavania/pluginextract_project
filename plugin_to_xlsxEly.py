@@ -604,8 +604,16 @@ if __name__ == "__main__":
             row = wb.add_single_row(
                 sheet, row, col_dict_level_0, (update_label(res, lm), ':'))
             for item in taskmappings[res]:
-                row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
-                    item, lm), taskmappings[res][item]))
+                value = taskmappings[res][item]
+                if type(value) is bool and value is True:
+                    row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
+                        item, lm),  check_mark))
+                elif type(value) is bool and value is False:
+                    row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
+                        item, lm),  cross_mark))
+                else:
+                    row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
+                        item, lm), value))
 
         # external_name = (typename[1])[:31]
         fm_sheet_name = typename[0][0] + "-" + \
