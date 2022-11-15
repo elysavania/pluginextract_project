@@ -3,6 +3,7 @@ import pandas as pd
 import pandasql as pdsql
 import xlsxwritertools
 from decimal import Decimal
+from autofit_spreadsheet_columns import autofit_spreadsheet_columns
 
 # 2022-11-11 NOJ: Since Python 2.1 you can use \N{name} escape sequence to insert Unicode characters by their names.
 # Source: https://stackoverflow.com/a/20799954
@@ -546,7 +547,8 @@ if __name__ == "__main__":
     limits, type_names, types = get_mappings_dict(plugin_data)
     update_provider_in_label_mapping(limits)
     # Create the workbook
-    wb = xlsxwritertools.XLSXWorkbook('MC_plugin_config.xlsx')
+    spreadsheet_filename = 'MC_plugin_config.xlsx'
+    wb = xlsxwritertools.XLSXWorkbook(spreadsheet_filename)
 
     # Create CRM Requirements Sheet
     sheet = wb.get_new_worksheet("CRM Requirements")
@@ -676,3 +678,5 @@ if __name__ == "__main__":
         wb.fill_sheet(sheet, col_field_mapping1,
                       filtered_listoffieldmappings_list)
     wb.close_workbook()
+    
+    autofit_spreadsheet_columns(spreadsheet_filename)
