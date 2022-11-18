@@ -36,6 +36,7 @@ import time
 from decimal import Decimal
 import pandas as pd
 
+
 class XLSXWorkbook():
     def __init__(self, filename):
         """
@@ -46,6 +47,7 @@ class XLSXWorkbook():
         self.filename = filename
         self.workbook = xlsxwriter.Workbook(self.filename)
         self.build_default_styles()
+
     def get_new_worksheet(self, sheetname):
         """
         Add a new sheet to the workbook.
@@ -54,6 +56,7 @@ class XLSXWorkbook():
         """
         sheet = self.workbook.add_worksheet(sheetname)
         return sheet
+
     def set_style(self, stylename, params):
         """
         Method for adding a style to the workbook. Each style will be a class-
@@ -63,6 +66,7 @@ class XLSXWorkbook():
         """
         style = self.workbook.add_format(params)
         setattr(self, stylename, style)
+
     def build_default_styles(self):
         """
         Place to define the standard cell styles. Each style is a dictionary
@@ -71,25 +75,32 @@ class XLSXWorkbook():
         """
         # print('Building default styles')
         text_params = {'align': 'left', 'font_name': 'Helvetica'}
-        color_text_params = {'align': 'left','font_name': 'Helvetica', 'font_color':'#5951ff'} # Conditions and Messages & Events
-        color_bold_text_params = {'align': 'left','bold': True,'font_name': 'Helvetica',} # conditional operator text - AND or OR
-        color_checkboxes_params = {'align': 'center','bold': True,'font_name': 'Helvetica','font_size': 20,'font_color': '#14A139'} # columns contain checkboxes
+        color_text_params = {'align': 'left', 'font_name': 'Helvetica',
+                             'font_color': '#5951ff'}  # Conditions and Messages & Events
+        color_bold_text_params = {'align': 'left', 'font_name': 'Helvetica',
+                                  'font_color': '#FFFFFF', 'bg_color': '654EDA', 'border': 1}  # conditional operator text - AND or OR
+        # Style for messages and events settings
+        bold_text_params = {'align': 'left',
+                            'bold': True, 'font_name': 'Helvetica'}
+        color_checkboxes_params = {'align': 'center', 'bold': True, 'font_name': 'Helvetica',
+                                   'font_size': 20, 'font_color': '#14A139'}  # columns contain checkboxes
         hdr_params = {'bold': True,
-                'align': 'left',
-                'shrink': True,
-                'bg_color': '#5951ff', # header background color set to deep purple
-                'font_name': 'Helvetica',
-                'font_size': 15,
-                'font_color': '#ffffff'
-                }
+                      'align': 'vcenter',
+                      #   'shrink': True,
+                      'bg_color': '#4A3A9E',  # header background color set to deep purple
+                      'font_name': 'Helvetica',
+                      'font_color': '#ffffff',
+                      'font_size': 13,
+                      'text_wrap': True
+                      }
         sub_hdr_params = {'bold': True,
-                'align': 'center',
-                'shrink': True,
-                'font_name': 'Helvetica',
-                'font_color':'#5951ff',
-                'bottom': 5
-                }
-        bold_params = {'bold': True,'font_name':'Helvetica','align':'left'}
+                          'align': 'center',
+                          'shrink': True,
+                          'font_name': 'Helvetica',
+                          'font_color': '#5951ff',
+                          'bottom': 5
+                          }
+        bold_params = {'bold': True, 'font_name': 'Helvetica', 'align': 'left'}
         date_params = {'num_format': 'mm/dd/yyyy'}
         time_params = {'num_format': 'hh:mm'}
         integer_params = {'num_format': '#,##0', 'align': 'right'}
@@ -100,8 +111,8 @@ class XLSXWorkbook():
         # Expanding the basic parameters with a bold font-weight and a double-
         # lined top border for total rows.
         total_params = {'bold': True,
-                'top': 6,
-                }
+                        'top': 6,
+                        }
         date_total_params = dict(total_params, **date_params)
         int_total_params = dict(total_params, **integer_params)
         num_total_params = dict(total_params, **number_params)
@@ -112,20 +123,22 @@ class XLSXWorkbook():
         # method. Many ways to do this, could call set_style for each one
         # individually. I just thought this was a bit more compact and less
         # repetitive.
-        all_params = {'text_style': text_params,'color_text_style': color_text_params, 
-        'color_bold_text_style': color_bold_text_params, 'color_checkboxes':color_checkboxes_params,
-                'sub_hdr_style':sub_hdr_params,'hdr_style': hdr_params,
-                'bold_style': bold_params, 'total_style': total_params,
-                'date_style': date_params, 'time_style': time_params,
-                'int_style': integer_params, 'num_style': number_params,
-                'pct_style': pct_params, 'currency_style': currency_params,
-                'idnum_style': idnum_params,
-                'date_tot_style': date_total_params, 'int_tot_style': int_total_params,
-                'num_tot_style': num_total_params, 'pct_tot_style': pct_total_params,
-                'currency_tot_style': currency_total_params,
-                'text_tot_style': text_total_params}
+        all_params = {'text_style': text_params, 'color_text_style': color_text_params,
+                      'color_bold_text_style': color_bold_text_params, 'color_checkboxes': color_checkboxes_params,
+                      'sub_hdr_style': sub_hdr_params, 'hdr_style': hdr_params,
+                      'bold_style': bold_params, 'total_style': total_params,
+                      'date_style': date_params, 'time_style': time_params,
+                      'int_style': integer_params, 'num_style': number_params,
+                      'pct_style': pct_params, 'currency_style': currency_params,
+                      'idnum_style': idnum_params,
+                      'date_tot_style': date_total_params, 'int_tot_style': int_total_params,
+                      'num_tot_style': num_total_params, 'pct_tot_style': pct_total_params,
+                      'currency_tot_style': currency_total_params,
+                      'text_tot_style': text_total_params,
+                      'bold_text_style': bold_text_params}
         for stylename, params in all_params.items():
             self.set_style(stylename, params)
+
     def add_headers(self, sheet, col_dict, multicol_max_length):
         """
         Method for adding header labels to a sheet. Will apply the hdr_style
@@ -144,7 +157,8 @@ class XLSXWorkbook():
                     new_col = col + i
                     sheet.set_column(new_col, new_col, metadata['width'])
                     sheet.write(0, new_col, metadata['label'], self.hdr_style)
-    def add_sub_headers(self, sheet, col_dict, multicol_max_length,row,column):
+
+    def add_sub_headers(self, sheet, col_dict, multicol_max_length, row, column):
         """
         Method for adding header labels to a sheet. Will apply the hdr_style
         formatting to each cell and will set the width. The label and width
@@ -155,7 +169,7 @@ class XLSXWorkbook():
         column: column to add the header
         """
         for col, metadata in col_dict.items():
-            col= col + column
+            col = col + column
             multicol = metadata.get('multicolumn', False)
             if not multicol:
                 sheet.set_column(col, col, metadata['width'])
@@ -164,7 +178,9 @@ class XLSXWorkbook():
                 for i in range(0, multicol_max_length):
                     new_col = col + i
                     sheet.set_column(new_col, new_col, metadata['width'])
-                    sheet.write(row, new_col, metadata['label'], self.sub_hdr_style)
+                    sheet.write(
+                        row, new_col, metadata['label'], self.sub_hdr_style)
+
     def _write_data_to_column(self, sheet, row, col, metadata, data, multicol_max_length):
         """
         Data for a column can have special requirements, e.g. URLs can have
@@ -178,7 +194,7 @@ class XLSXWorkbook():
         style_string = metadata['style']
         if 'note' in metadata.keys():
             # print(row,col,metadata)
-            sheet.write_comment(0,col,metadata['note'])
+            sheet.write_comment(0, col, metadata['note'])
         if style_string == 'url_style':
             if isinstance(data, dict):
                 # If the url data is a dictionary, that means that it could
@@ -192,12 +208,14 @@ class XLSXWorkbook():
                 new_col = col + i
                 sheet.write(row, new_col, val, style)
         elif 'dropdown' in metadata.keys():
-            sheet.data_validation(row,col,row,col, {'validate': 'list','source': metadata['dropdown']})
+            sheet.data_validation(row, col, row, col, {
+                                  'validate': 'list', 'source': metadata['dropdown']})
             style = getattr(self, style_string)
             sheet.write(row, col, data, style)
         else:
             style = getattr(self, style_string)
             sheet.write(row, col, data, style)
+
     def fill_sheet(self, sheet, col_dict, data):
         """
         Method to fill a worksheet with simple data.
@@ -224,7 +242,8 @@ class XLSXWorkbook():
                 # print(sheet, row, col, metadata, rec[col], multicol_max_length)
                 # if rec[9]:
                 #     sheet.write_comment(row,0,rec[9])
-                self._write_data_to_column(sheet, row, col, metadata, rec[col], multicol_max_length)
+                self._write_data_to_column(
+                    sheet, row, col, metadata, rec[col], multicol_max_length)
             row += 1
         return row
 
@@ -256,8 +275,10 @@ class XLSXWorkbook():
                     elif colinfo['special'] == 'short_url':
                         value = get_post_message_short_url(post.post_message)
                     elif colinfo['special'] == 'short_url_count':
-                        short_url = get_post_message_short_url(post.post_message)
-                        value = get_short_url_click_count(short_url, url_tracking)
+                        short_url = get_post_message_short_url(
+                            post.post_message)
+                        value = get_short_url_click_count(
+                            short_url, url_tracking)
                 elif 'page' in colinfo and colinfo['page']:
                     value = getattr(page, colinfo['attr'])
                 elif colinfo['style'] == date_style:
@@ -277,7 +298,8 @@ class XLSXWorkbook():
                 sheet.write(row, col, value, style)
             row += 1
         return row
-    def add_single_row(self, sheet, row, col_dict,data):
+
+    def add_single_row(self, sheet, row, col_dict, data):
         """
         Method to add a single row of data to a sheet. Most useful for totals.
         sheet: a sheet object that has been added to a workbook
@@ -291,7 +313,7 @@ class XLSXWorkbook():
         row += 1
         return row
 
-    def add_single_row_from_list(self, sheet, row, col_dict,data):
+    def add_single_row_from_list(self, sheet, row, col_dict, data):
         """
         NEw
         """
@@ -300,8 +322,8 @@ class XLSXWorkbook():
             sheet.write(row, col, data, style)
         row += 1
         return row
-    
-    def add_single_row_shift(self, sheet, row, col_dict, shift,data):
+
+    def add_single_row_shift(self, sheet, row, col_dict, shift, data):
         """
         Method to add a single row of data to a sheet. Most useful for totals.
         sheet: a sheet object that has been added to a workbook
@@ -315,7 +337,7 @@ class XLSXWorkbook():
         row += 1
         return row
 
-    def add_pandas_table(self, sheet, col_dict, df,row,shift):
+    def add_pandas_table(self, sheet, col_dict, df, row, shift):
         """
         TODO
         sheet: a sheet object that has been added to a workbook
@@ -325,25 +347,21 @@ class XLSXWorkbook():
         """
         (max_row, max_col) = df.shape
         column_settings = [{'header': column} for column in df.columns]
-        sheet.add_table(row, shift, max_row+row, max_col - 1 +shift, {'columns': column_settings})
+        sheet.add_table(row, shift, max_row+row, max_col -
+                        1 + shift, {'columns': column_settings})
         sheet.set_column(shift, max_col - 1, 12)
         return max_row+row+1
-    
+
     def close_workbook(self):
         """
         Closing and saving the workbook.
         """
         self.workbook.close()
 
-
-
-
-
-    def add_single_row_new_way(self, sheet, row, col, col_dict,data):
+    def add_single_row_new_way(self, sheet, row, col, col_dict, data):
         """
         NEW
         """
-        # print(col_dict['style'])
         style = getattr(self, col_dict['style'])
         sheet.set_column(col, col, col_dict['width'])
         sheet.write(row, col, data, style)

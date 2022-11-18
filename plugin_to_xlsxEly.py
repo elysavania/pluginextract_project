@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import pandasql as pdsql
 import xlsxwritertools
+from openpyxl import workbook
 from decimal import Decimal
 from autofit_spreadsheet_columns import autofit_spreadsheet_columns
 
@@ -194,7 +195,7 @@ preset_data_lead = {
 }
 preset_data_contact = {}
 
-preset_data_engagement_panel_field_note = "Uncheck both 'Skip empty values...' checkboxes in Advanced Field Mapping"
+preset_data_engagement_panel_field_note = "Untick both 'Skip empty values...' checkboxes in Advanced Field Mapping"
 preset_data_engagement_panel_fields = dict.fromkeys([
     "current_sequence_name",
     "current_sequence_status",
@@ -235,7 +236,7 @@ def read_plugin_json(fname="MC_plugin_configuration.json"):
 # def show_keys(plugin_data):
 #     print(plugin_data.keys())
 
-# fn to identify the plugin types and fields associated w/ the types
+# To identify the plugin types and fields associated w/ the types
 
 
 def get_mappings_dict(plugin_data):
@@ -248,7 +249,7 @@ def get_mappings_dict(plugin_data):
                 if key == 'Template':
                     temp['InternalField'] = temp[key]
 
-        if ptype['InternalType'] == 'MessengerGroup':  # ignore MessengerGroup object
+        if ptype['InternalType'] == 'MessengerGroup':  # Ignore MessengerGroup object
             continue
         # name = str(ptype['ExternalType'])+'-'+str(ptype['InternalType'])
         name = (ptype['ExternalType'], ptype['InternalType'])
@@ -265,7 +266,7 @@ def update_provider_in_label_mapping(datadict):
     provider = datadict['Provider'].capitalize()
     for i in label_mapping:
         label_mapping[i] = label_mapping[i].replace(
-            "{provider}", provider)  # why provider here is not capitalized
+            "{provider}", provider)
 
 # To add types to label mappings
 
@@ -327,14 +328,30 @@ def write_conditions(value, lm, row):
     columnnames = list(tabledict[0].keys())
     order = [1, 0, 2]
     columnnames = [columnnames[i] for i in order]
+    # print(columnnames)
+
     df = pd.DataFrame(columns=columnnames)
     df = df.append(tabledict, ignore_index=True)
     df.fillna('null', inplace=True)
     listofconditions = df.values.tolist()
     listofconditions = intersperse(listofconditions, logical_operator)
     # wb.add_sub_headers(sheet,col_dict_conditions,3,row,0)
-    row = row + 1  # add a row before the condition)
+
     for i in listofconditions:
+        # print(listofconditions)
+        # def add_single_row(self, sheet, row, col_dict, data):
+        # """
+        # Method to add a single row of data to a sheet. Most useful for totals.
+        # sheet: a sheet object that has been added to a workbook
+        # row: the number of the row to write the data
+        # col_dict: a dictionary of meta-data about each column
+        # data: a container of data, i.e. a list or tuple
+        # """
+        # for col, metadata in col_dict.items():
+        #     style = getattr(self, metadata['style'])
+        #     sheet.write(row, col, data[col], style)
+        # row += 1
+        # return row
         if i[1] == '':
             row = wb.add_single_row_shift(
                 sheet, row, col_dict_conditions_operator, 1, update_labels_in_list(i, lm))
@@ -358,7 +375,8 @@ if __name__ == "__main__":
     }
     header_text = {
         'width': 200,
-        'style': 'hdr_style'
+        'style': 'hdr_style',
+        'text_wrap': True
     }
     url_text = {
         'width': 200,
@@ -380,12 +398,23 @@ if __name__ == "__main__":
 
     }
 
+    col_condition = {
+
+        0: {
+            'width': 200,
+            'height': 100,
+            'y_offset': 10,
+            'x_offset': 10,
+            'border': 1
+        }
+    }
+
     # Style for Messages & Events settings
     col_dict_task_mapping = {
         0: {
             'label': 'Field',
             'width': 100,
-            'style': 'color_bold_text_style'
+            'style': 'bold_text_style'
         },
         1: {
             'label': 'Value',
@@ -413,18 +442,18 @@ if __name__ == "__main__":
         0: {
             'label': 'Field',
             'width': 50,
-            'style': 'color_text_style'
+            'style': 'color_bold_text_style'
         },
         1: {
             'label': 'Comparison Operator',
             'width': 50,
-            'style': 'color_text_style'
+            'style': 'color_bold_text_style'
         },
         2: {
             'label': 'Value',
             'width': 50,
-            'style': 'color_text_style'
-        },
+            'style': 'color_bold_text_style'
+        }
 
     }
     col_field_mapping = {
@@ -524,30 +553,70 @@ if __name__ == "__main__":
                 'Custom Fields'
             ]
         },
+
         4: {
-            'label': 'Updates In (SFDC > OR)',
-            'width': 25,
-            'style': 'color_checkboxes',
-            'note': 'Updates In = Sync data from Salesforce to Outreach. When the box is unchecked, the field can be synced from Salesforce. When the box is checked, the field is selected to be synced from Salesforce. When there is no checkbox, the field only syncs to Salesforce.'
-        },
-        5: {
-            'label': 'Updates Out (OR > SFDC)',
-            'width': 25,
-            'style': 'color_checkboxes',
-            'note': 'Updates Out = Push data from Outreach to Salesforce. When the box is unchecked, the field can be synced to Salesforce. When the box is checked, the field is selected to be synced to Salesforce. When there is no checkbox, the field only syncs from Salesforce.'
-        },
-        6: {
-            'label': 'Notes',
+            'label': 'Internal Empty Placeholder',
             'width': 30,
             'style': 'text_style'
         },
+
+        5: {
+            'label': 'External Mapped Type',
+            'width': 30,
+            'style': 'text_style'
+        },
+
+        6: {
+            'label': 'External Empty Placeholder',
+            'width': 30,
+            'style': 'text_style'
+        },
+
+        7: {
+            'label': 'Mapped Field',
+            'width': 30,
+            'style': 'text_style'
+        },
+
+        8: {
+            'label': 'Look For Name Instead Of record ID',
+            'width': 30,
+            'style': 'text_style'
+        },
+
+        9: {
+            'label': 'Display Name Instead Of record ID',
+            'width': 30,
+            'style': 'text_style'
+        },
+
+        10: {
+            'label': 'Updates In (SFDC > OR)',
+            'width': 35,
+            'style': 'color_checkboxes',
+            'note': 'Updates In = Sync data from Salesforce to Outreach. When the box is unchecked, the field can be synced from Salesforce. When the box is checked, the field is selected to be synced from Salesforce. When there is no checkbox, the field only syncs to Salesforce.'
+        },
+
+        11: {
+            'label': 'Updates Out (OR > SFDC)',
+            'width': 35,
+            'style': 'color_checkboxes',
+            'note': 'Updates Out = Push data from Outreach to Salesforce. When the box is unchecked, the field can be synced to Salesforce. When the box is checked, the field is selected to be synced to Salesforce. When there is no checkbox, the field only syncs from Salesforce.'
+        },
+
+        12: {
+            'label': 'Notes',
+            'width': 30,
+            'style': 'text_style'
+        }
     }
 
     plugin_data = read_plugin_json()
     limits, type_names, types = get_mappings_dict(plugin_data)
     update_provider_in_label_mapping(limits)
     # Create the workbook
-    spreadsheet_filename = 'MC_plugin_config.xlsx'
+
+    spreadsheet_filename = 'MC_plugin_configuration.xlsx'
     wb = xlsxwritertools.XLSXWorkbook(spreadsheet_filename)
 
     # Create CRM Requirements Sheet
@@ -608,14 +677,14 @@ if __name__ == "__main__":
             for item in taskmappings[res]:
                 value = taskmappings[res][item]
                 if type(value) is bool and value is True:
-                    row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
-                        item, lm),  check_mark))
+                    row = wb.add_single_row(
+                        sheet, row, col_dict_task_mapping, (update_label(item, lm),  check_mark))
                 elif type(value) is bool and value is False:
-                    row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
-                        item, lm),  cross_mark))
+                    row = wb.add_single_row(
+                        sheet, row, col_dict_task_mapping, (update_label(item, lm),  cross_mark))
                 else:
-                    row = wb.add_single_row(sheet, row, col_dict_task_mapping, (update_label(
-                        item, lm), value))
+                    row = wb.add_single_row(
+                        sheet, row, col_dict_task_mapping, (update_label(item, lm), value))
 
         # external_name = (typename[1])[:31]
         fm_sheet_name = typename[0][0] + "-" + \
@@ -640,7 +709,7 @@ if __name__ == "__main__":
             temp.append('')
             # temp.append('') ## Recommended empty or prefilled 4
             # temp.append('')  ## UI Visibility TODO: pre set values 5
-            if i[8] == True:  # Updates IN 6
+            if i[10] == True:  # Updates IN 6
                 temp.append(f"{check_mark}")  # UI
             else:
                 temp.append('')
@@ -650,6 +719,11 @@ if __name__ == "__main__":
                 temp.append('')
             temp.append('')  # NOTES 8
             temp.append('')  # reserved for popup notes 9
+            temp.append('')  # reserved for
+            temp.append('')
+            temp.append('')
+            temp.append('')
+            temp.append('')
             # print(temp)
             filtered_listoffieldmappings_list.append(temp)
         # print(typename[0])
@@ -666,8 +740,9 @@ if __name__ == "__main__":
                     filtered_listoffieldmappings_list[index][3] = temp_preset[i[0]]["RecordType"]
                     # filtered_listoffieldmappings_list[index][4] = temp_preset[i[0]]["Recommended"]
                     # filtered_listoffieldmappings_list[index][5] = temp_preset[i[0]]["UI Visibility"]
-                    filtered_listoffieldmappings_list[index][6] = temp_preset[i[0]]["Note"]
+                    filtered_listoffieldmappings_list[index][12] = temp_preset[i[0]]["Note"]
             # print(filtered_listoffieldmappings_list)
+            # print(col_field_mapping1)
 
         # for i in range(len(filtered_listoffieldmappings_list)):
         #     for j in range(len(filtered_listoffieldmappings_list[i])):
@@ -677,6 +752,7 @@ if __name__ == "__main__":
         #             print(filtered_listoffieldmappings_list[i])
         wb.fill_sheet(sheet, col_field_mapping1,
                       filtered_listoffieldmappings_list)
+
     wb.close_workbook()
-    
+
     autofit_spreadsheet_columns(spreadsheet_filename)
