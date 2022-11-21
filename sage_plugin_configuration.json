@@ -1,0 +1,2608 @@
+{
+  "SchemaVersion": "1.0.0",
+  "Legacy": {
+    "PluginID": 1,
+    "Provider": "salesforce",
+    "ProviderBaseURL": "https://sagegroup.my.salesforce.com",
+    "OutreachBaseURL": "https://app2c.outreach.io",
+    "PluginAuthMode": "master",
+    "GlobalAPICallThreshold": 3000000,
+    "OutreachSpecificAPICallThreshold": null,
+    "PollUsersOnReconnect": true,
+    "AllowDuplicateProspects": true,
+    "GranularOptOutEnabled": true,
+    "PluginTypeMappings": [
+      {
+        "InternalType": "User",
+        "ExternalType": "User",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "first_name",
+            "InternalDefault": "[Not Set]",
+            "ExternalField": "FirstName",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "last_name",
+            "ExternalField": "LastName",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "email",
+            "ExternalField": "Email",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "title",
+            "ExternalField": "Title",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "username",
+            "ExternalField": "Username",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "governance_role",
+            "ExternalField": "UserRoleId",
+            "ExternalMappedType": "UserRole",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom1",
+            "ExternalField": "Id",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {},
+        "InboundSyncAfterManualCreate": false,
+        "InboundUpdateEnabled": true,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {},
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 1,
+        "InboundCreateContacts": false
+      },
+      {
+        "InternalType": "Stage",
+        "ExternalType": "LeadStatus",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "name",
+            "ExternalField": "MasterLabel",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {},
+        "InboundSyncAfterManualCreate": false,
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {},
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 2
+      },
+      {
+        "InternalType": "Prospect",
+        "ExternalType": "Lead",
+        "PollingEnabled": true,
+        "PollingIntervalMinutes": 2,
+        "PollingConditions": {
+          "LogicalOperator": "and",
+          "ConditionGroups": [
+            {
+              "LogicalOperator": "or",
+              "Conditions": [
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "Region__c",
+                  "Value": "North America"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "Region__c",
+                  "Value": "UK & I"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "Region__c",
+                  "Value": "Africa & Middle East"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "Region__c",
+                  "Value": "Australia"
+                }
+              ]
+            }
+          ]
+        },
+        "MergeAndDeletePollingEnabled": true,
+        "MergeAndDeletePollingFrequencyMinutes": 10,
+        "SkipInboundDeleteInSequence": true,
+        "TrashBackfillEnabled": false,
+        "StandardTaskMappings": {
+          "OutboundCreateInMessages": true,
+          "OutboundCreateInMessagesCustom": false,
+          "OutboundCreateInMessagesTemplate": "[Outreach] [Email] [In] {{message_subject}}",
+          "OutboundCreateMailings": false,
+          "OutboundCreateMailingsCustom": false,
+          "OutboundCreateMailingsTemplate": "[Outreach] [Email] [Out] {{message_subject}}",
+          "OutboundCreateOutMessages": true,
+          "OutboundCreateOutMessagesCustom": false,
+          "OutboundCreateOutMessagesTemplate": "[Outreach] [Email] [Out] {{message_subject}}",
+          "OutboundCreateNotes": false,
+          "OutboundCreateNotesCustom": false,
+          "OutboundCreateNotesTemplate": "[Outreach] [Other] {{note_type}}",
+          "OutboundCreateCompletedTasks": false,
+          "OutboundCreateCompletedTasksCustom": false,
+          "OutboundCreateCompletedTasksTemplate": "[Outreach] [Other] {{task_title}}",
+          "OutboundCreateCalls": false,
+          "OutboundCreateCallsCustom": false,
+          "OutboundCreateCallsTemplate": "[Outreach] [Call] [{{call_type}}] [{{call_disposition}}] {{call_title}}",
+          "OutboundCreateCallsRecording": true,
+          "OutboundCreateMailingClicks": false,
+          "OutboundCreateMailingClicksCustom": false,
+          "OutboundCreateMailingClicksTemplate": "[Outreach] [Email] [Clicked] {{message_subject}}",
+          "OutboundCreateMailingOpens": false,
+          "OutboundCreateMailingOpensCustom": false,
+          "OutboundCreateMailingOpensTemplate": "[Outreach] [Email] [Opened] {{message_subject}}",
+          "OutboundMessageIDField": "Message_ID__c",
+          "OutboundIncludeMessageID": false
+        },
+        "FieldMappings": [
+          {
+            "InternalField": "first_name",
+            "ExternalField": "FirstName",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "last_name",
+            "ExternalField": "LastName",
+            "ExternalDefault": "[Not Set]",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "company",
+            "ExternalField": "Company",
+            "ExternalDefault": "[Not Set]",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "title",
+            "ExternalField": "Title",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "website",
+            "ExternalField": "Website",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "email",
+            "ExternalField": "Email",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "emails_opted_out",
+            "ExternalField": "HasOptedOutOfEmail",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "stage_name",
+            "ExternalField": "Status",
+            "ExternalMappedType": "LeadStatus",
+            "MappedField": false,
+            "LookForNameInsteadOfID": true,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "owner",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "source",
+            "ExternalField": "Lead_Source__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom2",
+            "ExternalField": "Most_Recent_SFDC_Campaign_Name__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom3",
+            "ExternalField": "Product__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom4",
+            "ExternalField": "Product_Solution__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom14",
+            "ExternalField": "Country",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom5",
+            "ExternalField": "Funnel_Stage__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom6",
+            "ExternalField": "Most_Recent_SFDC_Campaign_Segment__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom7",
+            "ExternalField": "IntacctcontactIntentScore__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom8",
+            "ExternalField": "Call_Me_Requested__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom11",
+            "ExternalField": "LastModifiedDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom12",
+            "ExternalField": "Number_of_Employees__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom13",
+            "ExternalField": "AnnualRevenue",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "work_phone",
+            "ExternalField": "Phone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "mobile_phone",
+            "ExternalField": "MobilePhone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "current_sequence_name",
+            "ExternalField": "Playbooks_Sequence_Name__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "current_sequence_step",
+            "ExternalField": "Playbooks_Sequence_Step_Number__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "current_sequence_status",
+            "ExternalField": "Playbooks_State__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "current_sequence_step_due",
+            "ExternalField": "Playbooks_Due_At__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "calls_opted_out",
+            "ExternalField": "DoNotCall",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "region",
+            "ExternalField": "Region__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom15",
+            "ExternalField": "Parent_Campaign_Name__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "address_country",
+            "ExternalField": "Country",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom35",
+            "ExternalField": "RecordTypeId",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": true,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "address_state",
+            "ExternalField": "State",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {
+          "LogicalOperator": "and",
+          "ConditionGroups": [
+            {
+              "LogicalOperator": "or",
+              "Conditions": [
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "region",
+                  "Value": "North America"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "region",
+                  "Value": "UK & I"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "region",
+                  "Value": "Africa & Middle East"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "region",
+                  "Value": "Australia"
+                }
+              ]
+            }
+          ]
+        },
+        "InboundSyncAfterManualCreate": true,
+        "InboundUpdateEnabled": true,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "equal",
+              "Field": "named_account",
+              "Value": "false"
+            },
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "owner",
+              "Value": ""
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": true,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": true,
+        "Order": 3
+      },
+      {
+        "InternalType": "Prospect",
+        "ExternalType": "Contact",
+        "PollingEnabled": true,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {
+          "LogicalOperator": "or",
+          "Conditions": [
+            {
+              "ComparisonOperator": "equal",
+              "Field": "MailingCountry",
+              "Value": "United Kingdom"
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "MailingCountry",
+              "Value": "Ireland"
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "MailingCountry",
+              "Value": "Canada"
+            }
+          ]
+        },
+        "MergeAndDeletePollingEnabled": true,
+        "MergeAndDeletePollingFrequencyMinutes": 10,
+        "SkipInboundDeleteInSequence": true,
+        "TrashBackfillEnabled": false,
+        "StandardTaskMappings": {
+          "OutboundCreateInMessages": true,
+          "OutboundCreateInMessagesCustom": false,
+          "OutboundCreateInMessagesTemplate": "[Outreach] [Email] [In] {{message_subject}}",
+          "OutboundCreateMailings": false,
+          "OutboundCreateMailingsCustom": false,
+          "OutboundCreateMailingsTemplate": "[Outreach] [Email] [Out] {{message_subject}}",
+          "OutboundCreateOutMessages": true,
+          "OutboundCreateOutMessagesCustom": false,
+          "OutboundCreateOutMessagesTemplate": "[Outreach] [Email] [Out] {{message_subject}}",
+          "OutboundCreateNotes": false,
+          "OutboundCreateNotesCustom": false,
+          "OutboundCreateNotesTemplate": "[Outreach] [Other] {{note_type}}",
+          "OutboundCreateCompletedTasks": false,
+          "OutboundCreateCompletedTasksCustom": false,
+          "OutboundCreateCompletedTasksTemplate": "[Outreach] [Other] {{task_title}}",
+          "OutboundCreateCalls": false,
+          "OutboundCreateCallsCustom": false,
+          "OutboundCreateCallsTemplate": "[Outreach] [Call] [{{call_type}}] [{{call_disposition}}] {{call_title}}",
+          "OutboundCreateCallsRecording": true,
+          "OutboundCreateMailingClicks": false,
+          "OutboundCreateMailingClicksCustom": false,
+          "OutboundCreateMailingClicksTemplate": "[Outreach] [Email] [Clicked] {{message_subject}}",
+          "OutboundCreateMailingOpens": false,
+          "OutboundCreateMailingOpensCustom": false,
+          "OutboundCreateMailingOpensTemplate": "[Outreach] [Email] [Opened] {{message_subject}}",
+          "OutboundMessageIDField": "Message_ID__c",
+          "OutboundIncludeMessageID": false
+        },
+        "FieldMappings": [
+          {
+            "InternalField": "first_name",
+            "ExternalField": "FirstName",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "last_name",
+            "ExternalField": "LastName",
+            "ExternalDefault": "[Not Set]",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "title",
+            "ExternalField": "Title",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "mobile_phone",
+            "ExternalField": "MobilePhone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "work_phone",
+            "ExternalField": "Phone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "email",
+            "ExternalField": "Email",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "emails_opted_out",
+            "ExternalField": "HasOptedOutOfEmail",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "owner",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "account",
+            "ExternalField": "AccountId",
+            "ExternalMappedType": "Account",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "voip_phone",
+            "ExternalField": "AssistantPhone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "home_phone",
+            "ExternalField": "HomePhone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "other_phone",
+            "ExternalField": "OtherPhone",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "current_sequence_name",
+            "ExternalField": "Playbooks_Sequence_Name__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "current_sequence_status",
+            "ExternalField": "Playbooks_State__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "current_sequence_step",
+            "ExternalField": "Playbooks_Sequence_Step_Number__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "current_sequence_step_due",
+            "ExternalField": "Playbooks_Due_At__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "calls_opted_out",
+            "ExternalField": "DoNotCall",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "custom16",
+            "ExternalField": "Contact_Owner_Role__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom14",
+            "ExternalField": "MailingCountry",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "address_state",
+            "ExternalField": "MailingState",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {
+          "LogicalOperator": "or",
+          "Conditions": [
+            {
+              "ComparisonOperator": "equal",
+              "Field": "custom14",
+              "Value": "United Kingdom"
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "custom14",
+              "Value": "Ireland"
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "custom14",
+              "Value": "Canada"
+            }
+          ]
+        },
+        "InboundSyncAfterManualCreate": true,
+        "InboundUpdateEnabled": true,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "equal",
+              "Field": "named_account",
+              "Value": "true"
+            },
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "owner",
+              "Value": ""
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": true,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": true,
+        "Order": 4,
+        "OutboundRelateToOpportunities": false,
+        "OutboundRelateToClosedOpportunities": false,
+        "OutboundUpdateOpportunityStage": false
+      },
+      {
+        "InternalType": "Account",
+        "ExternalType": "Account",
+        "PollingEnabled": true,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {
+          "LogicalOperator": "or",
+          "ConditionGroups": [
+            {
+              "LogicalOperator": "and",
+              "ConditionGroups": [
+                {
+                  "LogicalOperator": "or",
+                  "Conditions": [
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "Type",
+                      "Value": "Customer"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "Type",
+                      "Value": "Partner"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "Type",
+                      "Value": "Accountant"
+                    }
+                  ]
+                },
+                {
+                  "LogicalOperator": "or",
+                  "Conditions": [
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "BillingCountry",
+                      "Value": "United Kingdom"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "BillingCountry",
+                      "Value": "Ireland"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "BillingCountry",
+                      "Value": "Canada"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "LogicalOperator": "and",
+              "Conditions": [
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "Type",
+                  "Value": "Prospect"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "BillingCountry",
+                  "Value": "Canada"
+                }
+              ]
+            }
+          ]
+        },
+        "MergeAndDeletePollingEnabled": true,
+        "MergeAndDeletePollingFrequencyMinutes": 10,
+        "SkipInboundDeleteInSequence": true,
+        "TrashBackfillEnabled": false,
+        "FieldMappings": [
+          {
+            "InternalField": "name",
+            "ExternalField": "Name",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "website",
+            "ExternalField": "Website",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "description",
+            "ExternalField": "Description",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "industry",
+            "ExternalField": "Industry",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "company_type",
+            "ExternalField": "Type",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "size",
+            "ExternalField": "NumberOfEmployees",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "owner",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom17",
+            "ExternalField": "Total_Addressable_Market_TAM__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom18",
+            "ExternalField": "IntacctaccountBuyingStage__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom19",
+            "ExternalField": "IntacctaccountIntentScore__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom20",
+            "ExternalField": "ENTERPRISEaccountBuyingStage__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom21",
+            "ExternalField": "Annual_Revenue__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom1",
+            "ExternalField": "Milestone1__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom2",
+            "ExternalField": "Date_Milestone1__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom3",
+            "ExternalField": "Milestone2__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom4",
+            "ExternalField": "Date_Milestone2__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom5",
+            "ExternalField": "Milestone3__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom6",
+            "ExternalField": "Date_Milestone3__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom7",
+            "ExternalField": "Milestone4__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom8",
+            "ExternalField": "Date_Milestone4__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom9",
+            "ExternalField": "Milestone5__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom10",
+            "ExternalField": "Date_Milestone5__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom11",
+            "ExternalField": "Milestone6__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom12",
+            "ExternalField": "Date_Milestone6__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom13",
+            "ExternalField": "Date_Milestone7__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom14",
+            "ExternalField": "Date_Milestone7__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom15",
+            "ExternalField": "Milestone8__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom16",
+            "ExternalField": "Date_Milestone8__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom23",
+            "ExternalField": "Customer_Churn_Score__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom24",
+            "ExternalField": "Payroll_Churn_Score__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom25",
+            "ExternalField": "BillingCountry",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {
+          "LogicalOperator": "or",
+          "ConditionGroups": [
+            {
+              "LogicalOperator": "and",
+              "ConditionGroups": [
+                {
+                  "LogicalOperator": "or",
+                  "Conditions": [
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "company_type",
+                      "Value": "Customer"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "company_type",
+                      "Value": "Partner"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "company_type",
+                      "Value": "Accountant"
+                    }
+                  ]
+                },
+                {
+                  "LogicalOperator": "or",
+                  "Conditions": [
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "custom25",
+                      "Value": "United Kingdom"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "custom25",
+                      "Value": "Ireland"
+                    },
+                    {
+                      "ComparisonOperator": "equal",
+                      "Field": "custom25",
+                      "Value": "Canada"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "LogicalOperator": "and",
+              "Conditions": [
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "company_type",
+                  "Value": "Prospect"
+                },
+                {
+                  "ComparisonOperator": "equal",
+                  "Field": "custom25",
+                  "Value": "Canada"
+                }
+              ]
+            }
+          ]
+        },
+        "InboundSyncAfterManualCreate": true,
+        "InboundUpdateEnabled": true,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "owner",
+              "Value": ""
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 5,
+        "InboundCreateContacts": false,
+        "OutboundCreateContacts": false
+      },
+      {
+        "InternalType": "OpportunityProspectRole",
+        "ExternalType": "OpportunityContactRole",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "opportunity",
+            "ExternalField": "OpportunityId",
+            "ExternalMappedType": "Opportunity",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "prospect",
+            "ExternalField": "ContactId",
+            "ExternalMappedType": "Contact",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "role",
+            "ExternalField": "Role",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "primary",
+            "ExternalField": "IsPrimary",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {},
+        "InboundSyncAfterManualCreate": false,
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 6
+      },
+      {
+        "InternalType": "OpportunityStage",
+        "ExternalType": "OpportunityStage",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "name",
+            "ExternalField": "MasterLabel",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "order",
+            "ExternalField": "SortOrder",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "is_active",
+            "ExternalField": "IsActive",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "is_closed",
+            "ExternalField": "IsClosed",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "is_won",
+            "ExternalField": "IsWon",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {},
+        "InboundSyncAfterManualCreate": false,
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 7
+      },
+      {
+        "InternalType": "Opportunity",
+        "ExternalType": "Opportunity",
+        "PollingEnabled": true,
+        "PollingIntervalMinutes": 1,
+        "PollingConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "equal",
+              "Field": "Type",
+              "Value": "Onboarding"
+            }
+          ]
+        },
+        "FieldMappings": [
+          {
+            "InternalField": "name",
+            "ExternalField": "Name",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "description",
+            "ExternalField": "Description",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "next_step",
+            "ExternalField": "NextStep",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "amount",
+            "ExternalField": "Amount",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "close_date",
+            "ExternalField": "CloseDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "probability",
+            "ExternalField": "Probability",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "opportunity_type",
+            "ExternalField": "Type",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "stage",
+            "ExternalField": "StageName",
+            "ExternalMappedType": "OpportunityStage",
+            "MappedField": true,
+            "LookForNameInsteadOfID": true,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "owner",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "account",
+            "ExternalField": "AccountId",
+            "ExternalMappedType": "Account",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "external_creator",
+            "ExternalField": "CreatedById",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "external_created_at",
+            "ExternalField": "CreatedDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom3",
+            "ExternalField": "Country__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom5",
+            "ExternalField": "Account_Owner_Role__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom8",
+            "ExternalField": "Contact_Phones__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom10",
+            "ExternalField": "Xant_Product__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom12",
+            "ExternalField": "Product_Solution__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom13",
+            "ExternalField": "Decision_Maker__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "custom4",
+            "ExternalField": "CreatedByFlow__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {
+          "LogicalOperator": "or",
+          "Conditions": [
+            {
+              "ComparisonOperator": "equal",
+              "Field": "opportunity_type",
+              "Value": "Onboarding"
+            }
+          ]
+        },
+        "InboundSyncAfterManualCreate": false,
+        "InboundUpdateEnabled": true,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {},
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 8,
+        "InboundCreateContacts": true
+      },
+      {
+        "InternalType": "Role",
+        "ExternalType": "UserRole",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "name",
+            "ExternalField": "Name",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "parent_role",
+            "ExternalField": "ParentRoleId",
+            "ExternalMappedType": "UserRole",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          }
+        ],
+        "InboundCreateEnabled": true,
+        "InboundCreateConditions": {},
+        "InboundSyncAfterManualCreate": false,
+        "InboundUpdateEnabled": true,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {},
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 9
+      },
+      {
+        "InternalType": "Call",
+        "ExternalType": "Task",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "user",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "prospect",
+            "ExternalField": "WhoId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "note",
+            "ExternalField": "Description",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Subject",
+            "Template": "[Outreach] [Call] Call Result:[{{call_disposition}}] Purpose:[{{call_purpose}}]",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "direction",
+            "ExternalField": "CallType",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "disposition_display",
+            "ExternalField": "CallDisposition",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "opportunity",
+            "ExternalField": "WhatId",
+            "ExternalMappedType": "Opportunity",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "state_changed_at",
+            "ExternalField": "ActivityDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Type",
+            "Template": "Connected Call",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "sequence_name",
+            "ExternalField": "Playbooks_Sequence_Name__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "sequence_step_number",
+            "ExternalField": "Playbooks_Sequence_Step_Number__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "id",
+            "ExternalField": "Playbooks_Call_Identifier__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          }
+        ],
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": true,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "prospect",
+              "Value": ""
+            },
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "state_changed_at",
+              "Value": ""
+            },
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "disposition_display",
+              "Value": "Call - No Answer"
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": true,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": true,
+        "Order": 10,
+        "OutboundRelateToOpportunities": false,
+        "OutboundRelateToClosedOpportunities": false
+      },
+      {
+        "InternalType": "Mailing",
+        "ExternalType": "Task",
+        "FieldMappings": [
+          {
+            "InternalField": "delivered_at",
+            "ExternalField": "ActivityDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "user",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "prospect",
+            "ExternalField": "WhoId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Description",
+            "Template": "From: {{from_display}}\nTo: {{to_display}}\n\n{{body}}",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Subject",
+            "Template": "[Outreach] [Email] [Out] {{subject}}",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "opportunity",
+            "ExternalField": "WhatId",
+            "ExternalMappedType": "Opportunity",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Type",
+            "Template": "Email",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "open_count",
+            "ExternalField": "Playbooks_Step_Email_Open_Count__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "click_count",
+            "ExternalField": "Playbooks_Step_Email_Link_Click_Count__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "sequence_name",
+            "ExternalField": "Playbooks_Sequence_Name__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "sequence_step_number",
+            "ExternalField": "Playbooks_Sequence_Step_Number__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "replied_at",
+            "ExternalField": "Playbooks_Step_Email_Replied__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          }
+        ],
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": true,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "delivered_at",
+              "Value": ""
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "bounced_at",
+              "Value": ""
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": true,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": true,
+        "Order": 11,
+        "OutboundRelateToOpportunities": false,
+        "OutboundRelateToClosedOpportunities": false
+      },
+      {
+        "InternalType": "Task",
+        "ExternalType": "Task",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "state",
+            "ExternalField": "Status",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "due_at",
+            "ExternalField": "ActivityDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "owner",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "prospect",
+            "ExternalField": "WhoId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "note",
+            "ExternalField": "Description",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Subject",
+            "Template": "[Outreach] [Other] {{task_title}}",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "opportunity",
+            "ExternalField": "WhatId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "sequence_id",
+            "ExternalField": "Playbooks_Step_ID__c",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          }
+        ],
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": true,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "action",
+              "Value": "call"
+            },
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "action",
+              "Value": "email"
+            },
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "action",
+              "Value": "sms"
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": true,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": true,
+        "Order": 12,
+        "OutboundRelateToOpportunities": false,
+        "OutboundRelateToClosedOpportunities": false
+      },
+      {
+        "InternalType": "CalendarEvent",
+        "ExternalType": "Event",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "booked_date",
+            "ExternalField": "CreatedDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "booker",
+            "ExternalField": "CreatedById",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": false
+          },
+          {
+            "InternalField": "title",
+            "ExternalField": "Subject",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "description",
+            "ExternalField": "Description",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "location",
+            "ExternalField": "Location",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "all_day",
+            "ExternalField": "IsAllDayEvent",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "start_time",
+            "ExternalField": "StartDateTime",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "end_time",
+            "ExternalField": "EndDateTime",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "prospect",
+            "ExternalField": "WhoId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "user",
+            "ExternalField": "OwnerId",
+            "ExternalMappedType": "User",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "opportunity",
+            "ExternalField": "WhatId",
+            "ExternalMappedType": "Opportunity",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": true,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          }
+        ],
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {
+          "LogicalOperator": "and",
+          "Conditions": [
+            {
+              "ComparisonOperator": "not equal",
+              "Field": "prospect",
+              "Value": ""
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "canceled",
+              "Value": "false"
+            },
+            {
+              "ComparisonOperator": "equal",
+              "Field": "organizer",
+              "Value": "true"
+            }
+          ]
+        },
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 13,
+        "OutboundRelateToOpportunities": false,
+        "OutboundRelateToClosedOpportunities": false
+      },
+      {
+        "InternalType": "MessengerGroup",
+        "ExternalType": "Task",
+        "PollingEnabled": false,
+        "PollingIntervalMinutes": 10,
+        "PollingConditions": {},
+        "FieldMappings": [
+          {
+            "InternalField": "last_message_at",
+            "ExternalField": "ActivityDate",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "prospect",
+            "ExternalField": "WhoId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "user",
+            "ExternalField": "OwnerId",
+            "MappedField": true,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "body",
+            "ExternalField": "Description",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          },
+          {
+            "InternalField": "__TEMPLATE__",
+            "ExternalField": "Subject",
+            "Template": "[Outreach] [Conversation] [{{outreach_number}}] - [{{external_number}}]",
+            "MappedField": false,
+            "LookForNameInsteadOfID": false,
+            "DisplayNameInsteadOfID": false,
+            "InboundEnabled": false,
+            "OutboundOmitIfEmpty": true,
+            "InboundOmitIfEmpty": true,
+            "OutboundEnabled": true
+          }
+        ],
+        "InboundUpdateEnabled": false,
+        "InboundUpdateConditions": {},
+        "OutboundCreateEnabled": false,
+        "OutboundCreateConditions": {},
+        "OutboundUpdateEnabled": false,
+        "OutboundUpdateConditions": {},
+        "OutboundPush": false,
+        "Order": 14,
+        "OutboundRelateToOpportunities": false,
+        "OutboundRelateToClosedOpportunities": false
+      }
+    ]
+  }
+}

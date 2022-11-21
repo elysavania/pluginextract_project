@@ -8,8 +8,19 @@ from autofit_spreadsheet_columns import autofit_spreadsheet_columns
 
 # 2022-11-11 NOJ: Since Python 2.1 you can use \N{name} escape sequence to insert Unicode characters by their names.
 # Source: https://stackoverflow.com/a/20799954
-check_mark = "\N{white heavy check mark}"
-cross_mark = "\N{cross mark}"
+
+unicode_symbols = {
+    "closing quotation": "\N{Right Double Quotation Mark}",
+    "contain": "\N{Superset of or Equal To}",
+    "cross": "\N{Cross Mark}",
+    "does not contain": "\N{Not a Superset of}",
+    "equal": "\N{Equals Sign}",
+    "greater than or equal": "\N{Greater-Than or Slanted Equal To}",
+    "less than or equal": "\N{Less-Than or Slanted Equal To}",
+    "not equal": "\N{Not Equal To}",
+    "opening quotation": "\N{Left Double Quotation Mark}",
+    "tick": "\N{White Heavy Check Mark}",
+}
 
 crmrequirements = [
     "Salesforce Requirements to Connect the Plugin",
@@ -233,9 +244,6 @@ def read_plugin_json(fname="MC_plugin_configuration.json"):
         plugin_data = json.load(f)
     return plugin_data
 
-# def show_keys(plugin_data):
-#     print(plugin_data.keys())
-
 # To identify the plugin types and fields associated w/ the types
 
 
@@ -304,7 +312,6 @@ def update_labels_in_list(lst, lm):
     for i in range(len(lst)):
         if lst[i] in lm:  # looks for list[index] in lm
             lst[i] = lm[lst[i]]
-    #print (lst)
     return (lst)
 
 # To intersperse an item in a list
@@ -315,44 +322,58 @@ def intersperse(lst, item):
     result[0::2] = lst
     return result
 
+def surround_with_quotation_marks(value):
+    return f"{unicode_symbols['opening quotation']}{value}{unicode_symbols['closing quotation']}"
 
 # To create condition columns and add the mapping values to the columns
 # need to
-def write_conditions(value, lm, row):
+def write_conditions(value, label_mapping, row):
     logical_operator = (update_label(
-        value['LogicalOperator'].upper(), lm), '', '')
+        value['LogicalOperator'].upper(), label_mapping), '', '')
     if 'Conditions' in value.keys():
-        tabledict = value['Conditions']
+        conditions = value['Conditions']
     elif 'ConditionGroups' in value.keys():
-        row = write_conditions(value["ConditionGroups"][0], lm, row)
+        print(value["ConditionGroups"][0])
+        row = write_conditions(value["ConditionGroups"][0], label_mapping, row)
         return row
-    columnnames = list(tabledict[0].keys())
+    column_names = list(conditions[0].keys())
     order = [1, 0, 2]
-    columnnames = [columnnames[i] for i in order]
-    # print(columnnames)
+    column_names = [column_names[i] for i in order]
+    column_names[1] = update_label(column_names[1], unicode_symbols)
 
-    df = pd.DataFrame(columns=columnnames)
-    df = df.append(tabledict, ignore_index=True)
+    df = pd.DataFrame(columns=column_names)
+    df = df.append(conditions, ignore_index=True)
     df.fillna('null', inplace=True)
-    listofconditions = df.values.tolist()
-    listofconditions = intersperse(listofconditions, logical_operator)
-    # make listofconditions into 1 string
-    # print(listofconditions)
-    # wb.add_sub_headers(sheet,col_dict_conditions,3,row,0)
+    list_of_conditions = df.values.tolist()
+    print(list_of_conditions)
+    list_of_conditions = intersperse(list_of_conditions, logical_operator)
+    print(list_of_conditions)
 
     # rewrite the below - no for loop
-    for i in listofconditions:
+    for i in list_of_conditions:
         if i[1] == '':
-            row = wb.add_single_row_shift(
-                sheet, row, col_dict_conditions_operator, 1, update_labels_in_list(i, lm))
+            # row = wb.add_single_row_shift(
+            #     sheet, row, col_dict_conditions_operator, 1, update_labels_in_list(i, label_mapping))
+            row = wb.add_single_row(
+                sheet, row, col_dict_level_0, ("", f"{i[0]}"))
         else:
             i = [x if x != '' else 'null' for x in i]  # replace - with null
-            row = wb.add_single_row_shift(
-                sheet, row, col_dict_conditions, 1, update_labels_in_list(i, lm))
+            # row = wb.add_single_row_shift(
+            #     sheet, row, col_dict_conditions, 1, update_labels_in_list(i, label_mapping))
+            field_name = i[0]
+            field_name_with_quotes = surround_with_quotation_marks(field_name)
+            operator_label = i[1]
+            operator_symbol = update_label(operator_label, unicode_symbols)
+            comparison_value = i[2]
+            comparison_value_with_quotes = surround_with_quotation_marks(comparison_value)
+            row = wb.add_single_row(
+                sheet, row, col_dict_level_0, ("", f"{field_name_with_quotes} {operator_symbol} {comparison_value_with_quotes}"))
     if 'ConditionGroups' in value:
-        row = wb.add_single_row_shift(
-            sheet, row, col_dict_conditions_operator, 1, logical_operator)
-        row = write_conditions(value["ConditionGroups"][0], lm, row)
+        # row = wb.add_single_row_shift(
+        #     sheet, row, col_dict_conditions_operator, 1, logical_operator)
+        row = wb.add_single_row(
+            sheet, row, col_dict_level_0, ("", logical_operator[0]))
+        row = write_conditions(value["ConditionGroups"][0], label_mapping, row)
     row = row + 1  # add a row after the condition)
     return row
 
@@ -631,7 +652,6 @@ if __name__ == "__main__":
         lm = label_mapping.copy()
         lm = update_external_internal_in_label_mapping(typename, lm)
         sheet_name = (typename[0]+'-'+typename[1])[:31]
-        print(sheet_name)
         sheet = wb.get_new_worksheet(sheet_name)
         attrdict = types[typename]['input']
         fieldmappingslist = attrdict['FieldMappings']
@@ -640,10 +660,7 @@ if __name__ == "__main__":
         row = row + 1
         taskmappings = {}
         for key, value in attrdict.items():
-            # print(key)
             if 'Conditions' in key and len(value) != 0:
-                # print(row)
-                # print(value, lm)
                 row = wb.add_single_row(
                     sheet, row, col_dict_level_0, (update_label(key, lm), ':'))
                 row = write_conditions(value, lm, row)
@@ -654,10 +671,10 @@ if __name__ == "__main__":
                 taskmappings = {key: value}
             elif type(value) is bool and value is True:
                 row = wb.add_single_row(
-                    sheet, row, col_dict_level_0, (update_label(key, lm), check_mark))
+                    sheet, row, col_dict_level_0, (update_label(key, lm), unicode_symbols["tick"]))
             elif type(value) is bool and value is False:
                 row = wb.add_single_row(
-                    sheet, row, col_dict_level_0, (update_label(key, lm), cross_mark))
+                    sheet, row, col_dict_level_0, (update_label(key, lm), unicode_symbols["cross"]))
             else:
                 row = wb.add_single_row(
                     sheet, row, col_dict_level_0, (update_label(key, lm), value))
@@ -670,10 +687,10 @@ if __name__ == "__main__":
                 value = taskmappings[res][item]
                 if type(value) is bool and value is True:
                     row = wb.add_single_row(
-                        sheet, row, col_dict_task_mapping, (update_label(item, lm),  check_mark))
+                        sheet, row, col_dict_task_mapping, (update_label(item, lm),  unicode_symbols["tick"]))
                 elif type(value) is bool and value is False:
                     row = wb.add_single_row(
-                        sheet, row, col_dict_task_mapping, (update_label(item, lm),  cross_mark))
+                        sheet, row, col_dict_task_mapping, (update_label(item, lm),  unicode_symbols["cross"]))
                 else:
                     row = wb.add_single_row(
                         sheet, row, col_dict_task_mapping, (update_label(item, lm), value))
@@ -681,15 +698,12 @@ if __name__ == "__main__":
         # external_name = (typename[1])[:31]
         fm_sheet_name = typename[0][0] + "-" + \
             typename[1][0:13] + " Field Mappings"
-        # sheet_name = (external_name)
-        # print(sheet_name)
         sheet = wb.get_new_worksheet(fm_sheet_name)
         df_fm = pd.DataFrame(columns=list(field_mapping.keys()))
         df_fm = df_fm.append(fieldmappingslist, ignore_index=True)
         df_fm.fillna('', inplace=True)
 
         listoffieldmappings = df_fm.values.tolist()
-        # print(listoffieldmappings)
         filtered_listoffieldmappings_list = []
 
         for i in listoffieldmappings:
@@ -702,11 +716,11 @@ if __name__ == "__main__":
             # temp.append('') ## Recommended empty or prefilled 4
             # temp.append('')  ## UI Visibility TODO: pre set values 5
             if i[10] == True:  # Updates IN 6
-                temp.append(f"{check_mark}")  # UI
+                temp.append(unicode_symbols["tick"])  # UI
             else:
                 temp.append('')
             if i[11] == True:  # Updates OUT 7
-                temp.append(f"{check_mark}")  # UI check
+                temp.append(unicode_symbols["tick"])  # UI check
             else:
                 temp.append('')
             temp.append('')  # NOTES 8
@@ -716,25 +730,17 @@ if __name__ == "__main__":
             temp.append('')
             temp.append('')
             temp.append('')
-            # print(temp)
             filtered_listoffieldmappings_list.append(temp)
-        # print(typename[0])
-        # print(filtered_listoffieldmappings_list)
         if typename[0] in types_mapping_to_preset_data.keys():
-            # print(typename[0])
             temp_preset = types_mapping_to_preset_data[typename[0]]
             for i in filtered_listoffieldmappings_list:
                 if i[0] in temp_preset.keys():
                     index = filtered_listoffieldmappings_list.index(i)
-                    # print(index)
-                    # print(temp_preset[i[0]]["FieldType"])
                     filtered_listoffieldmappings_list[index][2] = temp_preset[i[0]]["FieldType"]
                     filtered_listoffieldmappings_list[index][3] = temp_preset[i[0]]["RecordType"]
                     # filtered_listoffieldmappings_list[index][4] = temp_preset[i[0]]["Recommended"]
                     # filtered_listoffieldmappings_list[index][5] = temp_preset[i[0]]["UI Visibility"]
                     filtered_listoffieldmappings_list[index][12] = temp_preset[i[0]]["Note"]
-            # print(filtered_listoffieldmappings_list)
-            # print(col_field_mapping1)
 
         wb.fill_sheet(sheet, col_field_mapping1,
                       filtered_listoffieldmappings_list)
