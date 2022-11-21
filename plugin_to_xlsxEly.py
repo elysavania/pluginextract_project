@@ -317,6 +317,7 @@ def intersperse(lst, item):
 
 
 # To create condition columns and add the mapping values to the columns
+# need to
 def write_conditions(value, lm, row):
     logical_operator = (update_label(
         value['LogicalOperator'].upper(), lm), '', '')
@@ -335,23 +336,12 @@ def write_conditions(value, lm, row):
     df.fillna('null', inplace=True)
     listofconditions = df.values.tolist()
     listofconditions = intersperse(listofconditions, logical_operator)
+    # make listofconditions into 1 string
+    # print(listofconditions)
     # wb.add_sub_headers(sheet,col_dict_conditions,3,row,0)
 
+    # rewrite the below - no for loop
     for i in listofconditions:
-        # print(listofconditions)
-        # def add_single_row(self, sheet, row, col_dict, data):
-        # """
-        # Method to add a single row of data to a sheet. Most useful for totals.
-        # sheet: a sheet object that has been added to a workbook
-        # row: the number of the row to write the data
-        # col_dict: a dictionary of meta-data about each column
-        # data: a container of data, i.e. a list or tuple
-        # """
-        # for col, metadata in col_dict.items():
-        #     style = getattr(self, metadata['style'])
-        #     sheet.write(row, col, data[col], style)
-        # row += 1
-        # return row
         if i[1] == '':
             row = wb.add_single_row_shift(
                 sheet, row, col_dict_conditions_operator, 1, update_labels_in_list(i, lm))
@@ -641,7 +631,7 @@ if __name__ == "__main__":
         lm = label_mapping.copy()
         lm = update_external_internal_in_label_mapping(typename, lm)
         sheet_name = (typename[0]+'-'+typename[1])[:31]
-        # print(sheet_name)
+        print(sheet_name)
         sheet = wb.get_new_worksheet(sheet_name)
         attrdict = types[typename]['input']
         fieldmappingslist = attrdict['FieldMappings']
@@ -652,6 +642,8 @@ if __name__ == "__main__":
         for key, value in attrdict.items():
             # print(key)
             if 'Conditions' in key and len(value) != 0:
+                # print(row)
+                # print(value, lm)
                 row = wb.add_single_row(
                     sheet, row, col_dict_level_0, (update_label(key, lm), ':'))
                 row = write_conditions(value, lm, row)
@@ -744,12 +736,6 @@ if __name__ == "__main__":
             # print(filtered_listoffieldmappings_list)
             # print(col_field_mapping1)
 
-        # for i in range(len(filtered_listoffieldmappings_list)):
-        #     for j in range(len(filtered_listoffieldmappings_list[i])):
-        #         val = filtered_listoffieldmappings_list[i][j]
-
-        #         if val == "__TEMPLATE__":
-        #             print(filtered_listoffieldmappings_list[i])
         wb.fill_sheet(sheet, col_field_mapping1,
                       filtered_listoffieldmappings_list)
 
