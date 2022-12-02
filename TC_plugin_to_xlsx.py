@@ -239,7 +239,7 @@ types_mapping_to_preset_data = {
 # helper function to load plugin config json file
 
 
-def read_plugin_json(fname="MC_plugin_configuration.json"):
+def read_plugin_json(fname="sage_plugin_configuration.json"):
     with open(fname, 'r') as f:
         plugin_data = json.load(f)
     return plugin_data
@@ -322,18 +322,21 @@ def intersperse(lst, item):
     result[0::2] = lst
     return result
 
+
 def surround_with_quotation_marks(value):
     return f"{unicode_symbols['opening quotation']}{value}{unicode_symbols['closing quotation']}"
 
 # To create condition columns and add the mapping values to the columns
-# need to
+
+
 def write_conditions(value, label_mapping, row):
     logical_operator = (update_label(
         value['LogicalOperator'].upper(), label_mapping), '', '')
     if 'Conditions' in value.keys():
         conditions = value['Conditions']
     elif 'ConditionGroups' in value.keys():
-        print(value["ConditionGroups"][0])
+        # Combined components of conditions into a single cell, replaced operator labels with symbols, added quotation marks to comparison values, and tidied up.
+        # print(value["ConditionGroups"][0])
         row = write_conditions(value["ConditionGroups"][0], label_mapping, row)
         return row
     column_names = list(conditions[0].keys())
@@ -345,9 +348,9 @@ def write_conditions(value, label_mapping, row):
     df = df.append(conditions, ignore_index=True)
     df.fillna('null', inplace=True)
     list_of_conditions = df.values.tolist()
-    print(list_of_conditions)
+    # print(list_of_conditions)
     list_of_conditions = intersperse(list_of_conditions, logical_operator)
-    print(list_of_conditions)
+    # print(list_of_conditions)
 
     # rewrite the below - no for loop
     for i in list_of_conditions:
@@ -355,7 +358,7 @@ def write_conditions(value, label_mapping, row):
             # row = wb.add_single_row_shift(
             #     sheet, row, col_dict_conditions_operator, 1, update_labels_in_list(i, label_mapping))
             row = wb.add_single_row(
-                sheet, row, col_dict_level_0, ("", f"{i[0]}"))
+                sheet, row, col_dict_conditions, ("", f"{i[0]}"))
         else:
             i = [x if x != '' else 'null' for x in i]  # replace - with null
             # row = wb.add_single_row_shift(
@@ -365,14 +368,15 @@ def write_conditions(value, label_mapping, row):
             operator_label = i[1]
             operator_symbol = update_label(operator_label, unicode_symbols)
             comparison_value = i[2]
-            comparison_value_with_quotes = surround_with_quotation_marks(comparison_value)
+            comparison_value_with_quotes = surround_with_quotation_marks(
+                comparison_value)
             row = wb.add_single_row(
-                sheet, row, col_dict_level_0, ("", f"{field_name_with_quotes} {operator_symbol} {comparison_value_with_quotes}"))
+                sheet, row, col_dict_conditions, ("", f"{field_name_with_quotes} {operator_symbol} {comparison_value_with_quotes}"))
     if 'ConditionGroups' in value:
         # row = wb.add_single_row_shift(
         #     sheet, row, col_dict_conditions_operator, 1, logical_operator)
         row = wb.add_single_row(
-            sheet, row, col_dict_level_0, ("", logical_operator[0]))
+            sheet, row, col_dict_conditions, ("", logical_operator[0]))
         row = write_conditions(value["ConditionGroups"][0], label_mapping, row)
     row = row + 1  # add a row after the condition)
     return row
@@ -453,19 +457,14 @@ if __name__ == "__main__":
         0: {
             'label': 'Field',
             'width': 50,
-            'style': 'color_bold_text_style'
+            'style': 'text_style'
         },
         1: {
             'label': 'Comparison Operator',
             'width': 50,
-            'style': 'color_bold_text_style'
-        },
-        2: {
-            'label': 'Value',
-            'width': 50,
-            'style': 'color_bold_text_style'
+            'style': 'color_bold_text_style',
+            'note': "Does Not Contain"
         }
-
     }
     col_field_mapping = {
         0: {
@@ -627,7 +626,7 @@ if __name__ == "__main__":
     update_provider_in_label_mapping(limits)
     # Create the workbook
 
-    spreadsheet_filename = 'MC_plugin_configuration.xlsx'
+    spreadsheet_filename = 'sage_plugin_configuration.xlsx'
     wb = xlsxwritertools.XLSXWorkbook(spreadsheet_filename)
 
     # Create CRM Requirements Sheet

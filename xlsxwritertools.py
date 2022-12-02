@@ -78,7 +78,7 @@ class XLSXWorkbook():
         color_text_params = {'align': 'left', 'font_name': 'Helvetica',
                              'font_color': '#5951ff'}  # Conditions and Messages & Events
         color_bold_text_params = {'align': 'left', 'font_name': 'Helvetica',
-                                  'font_color': '#FFFFFF', 'bg_color': '654EDA', 'border': 1}  # conditional operator text - AND or OR
+                                  'font_color': '#FFFFFF', 'bg_color': '654EDA', 'border': 1, 'bold': True}  # conditional operator text - AND or OR
         # Style for messages and events settings
         bold_text_params = {'align': 'left',
                             'bold': True, 'font_name': 'Helvetica'}
