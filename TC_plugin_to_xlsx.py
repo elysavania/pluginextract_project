@@ -208,7 +208,6 @@ preset_data_contact = {}
 
 preset_data_engagement_panel_field_note = "Untick both 'Skip empty values...' checkboxes in Advanced Field Mapping"
 preset_data_engagement_panel_fields = dict.fromkeys([
-    "current_sequence_name",
     "current_sequence_status",
     "current_sequence_step",
     "current_sequence_step_type",
@@ -456,14 +455,14 @@ if __name__ == "__main__":
     col_dict_conditions = {
         0: {
             'label': 'Field',
-            'width': 50,
+            'width': 30,
             'style': 'text_style'
         },
         1: {
             'label': 'Comparison Operator',
-            'width': 50,
+            'width': 30,
             'style': 'color_bold_text_style',
-            'note': "Does Not Contain"
+            'note': 'closing quotation:\N{Right Double Quotation Mark},contain:\N{Superset of or Equal To},cross:\N{Cross Mark},does not contain:\N{Not a Superset of},Equal:\N{Equals Sign},greater than or equal:\N{Greater-Than or Slanted Equal To},less than or equal:\N{Less-Than or Slanted Equal To},not equal:\N{Not Equal To},opening quotation:\N{Left Double Quotation Mark},tick:\N{White Heavy Check Mark}'
         }
     }
     col_field_mapping = {
